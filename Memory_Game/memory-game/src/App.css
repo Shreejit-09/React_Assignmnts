@@ -1,0 +1,20 @@
+body{
+	background: radial-gradient(#f2eea5 ,#60a4db ,#d9c555 );
+	text-align: center;
+	height: 100%;
+}
+button{
+	background: transparent;
+	border: 2px solid white;
+	border-radius: 10rem;
+}
+button:hover{
+	background: radial-gradient(white,#f2eea5 ,#60a4db);
+}
+.card-grid{
+	margin-top: 40px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 1%;
+
+}
