@@ -3,8 +3,6 @@ import "./Card.css";
 
 
 
-
-
 function Card(props ){
 
 
@@ -18,7 +16,6 @@ function Card(props ){
           onClick = {()=>{
           	props.onChecked(props.id);
           }}
-
           alt = "card-Back"/>
         </div>
         </div>

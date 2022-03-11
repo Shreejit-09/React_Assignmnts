@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from "react";
 import './App.css';
 import {Card} from './components/Card.jsx';
+
 const cardImages=[
 // { "src":"/images/blank.png"},
 {"src":"/images/cheeseburger.png" , "matched":false},
@@ -16,30 +17,36 @@ function App() {
   const [turns, setTurns]=useState(0);
   const [choiceOne,setChoiceOne]=useState(null);
   const [choiceTwo,setChoiceTwo]=useState(null);
-
+  const [disabled,setDisabled]=useState(false);
+  
 
   function shuffleCards(){
     const shuffledCards=[...cardImages,...cardImages]
     .sort(()=>Math.random()-0.5)
     .map((card)=>({...card,id:Math.random()}))
+
+    setChoiceOne(null)
+    setChoiceTwo(null)
     setCards(shuffledCards)
     setTurns(0)
   }
  
   function handleChoice(card){
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
-    
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);  
   }
 
   function resetTurn(){
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns( prevTurns => prevTurns + 1)
+    setDisabled(false)
+    
   }
   //compare two cards
   useEffect(() => {
     if(choiceOne && choiceTwo) {
       // console.log(choiceOne);
+      setDisabled(true)
       if (choiceOne.src === choiceTwo.src) {
         setCards(prevCards =>{
 
@@ -60,7 +67,14 @@ function App() {
     }
 
   }, [choiceOne, choiceTwo]);
-  console.log(cards);
+
+  // start a new game automaticslly
+  useEffect(() => {
+    shuffleCards()
+  } , [])
+
+
+  // console.log(cards);
 
   return (
     <div>
@@ -74,6 +88,7 @@ function App() {
         src ={card.src}
         onChecked={handleChoice} 
         flipped = {card === choiceOne || card === choiceTwo || card.matched}
+        
         />
         ))}
       </div>
